@@ -1,4 +1,4 @@
-package controllers;
+package src.controllers;
 
 public class DealerController {
 }
