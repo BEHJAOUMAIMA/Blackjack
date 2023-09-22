@@ -3,22 +3,25 @@ import services.CardService;
 
 import java.util.Scanner;
 
+
 public class BlackJackApp {
     public static void main(String[] args) {
         CardService cardService = new CardService();
 
-        int[][] deck = cardService.createCards(new int[] {1, 1});
+        int[][] deck = cardService.createNextCards(new int[] {1, 1});
 
-        int[] givenCard = {7, 1};
-
-        int[][] next_cards = cardService.nextCards(deck, givenCard);
-
-        System.out.println("Cartes suivantes :");
-        for (int i = 0; i < next_cards.length; i++) {
-            int number = next_cards[i][0];
-            int symbol = next_cards[i][1];
-            System.out.println(number + " " + symbol);
+        if (deck.length == 0) {
+            System.out.println("Carte initiale non trouvée !");
+        } else {
+            System.out.println("Cartes du jeu :");
+            for (int i = 0; i < deck.length; i++) {
+                int card_number = deck[i][0];
+                int card_symbol = deck[i][1];
+                System.out.println("{" + card_number + "," + card_symbol+ "}" );
+            }
         }
+
+    }
         /*CardController cardController = new CardController();
         String welcomeToGame = cardController.welcomeToGame();
 
@@ -44,5 +47,5 @@ public class BlackJackApp {
         /*int[][] packet = cardController.createCards();
         String cards = cardController.displayCards(packet);
         System.out.println(cards);*/
-    }
 }
+
