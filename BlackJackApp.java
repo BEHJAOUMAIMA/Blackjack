@@ -1,6 +1,7 @@
 import controllers.CardController;
 import services.CardService;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 
@@ -10,7 +11,51 @@ public class BlackJackApp {
 
         int[][] deck = cardService.createNextCards(new int[] {1, 1});
 
-        if (deck.length == 0) {
+        //Melanger les cartes
+
+        /*System.out.println("Deck initial :");
+        for (int i = 0; i < deck.length; i++) {
+            System.out.println(Arrays.toString(deck[i]));
+        }
+
+        int[][] shuffledDeck = cardService.shuffleDeck(deck);
+
+        System.out.println("\nDeck mélangé :");
+        for (int i = 0; i < shuffledDeck.length; i++) {
+            System.out.println(Arrays.toString(shuffledDeck[i]));
+        }*/
+
+        //Tirer une carte
+
+        /*int[][][] result = cardService.drawCard(deck);
+
+        int[] drawnCard = result[0][0];
+        System.out.println("Carte tirée : " + Arrays.toString(drawnCard));
+
+        int[][] remainingCards = result[1];
+        System.out.println("Cartes restantes :");
+        for (int i = 0; i < remainingCards.length; i++) {
+            System.out.println(Arrays.toString(remainingCards[i]));
+        }*/
+
+        // Extraire une carte
+
+        /*int indice = 51;
+
+        int[][][] result1 = cardService.extraireIemeCarte(deck, indice);
+
+        int[] drawn_card = result1[0][0];
+        System.out.println("Carte tirée : " + Arrays.toString(drawn_card));
+
+        int[][] remainingCards = result1[1];
+        System.out.println("Cartes restantes :");
+        for (int i = 0; i < remainingCards.length; i++) {
+            System.out.println(Arrays.toString(remainingCards[i]));
+        }*/
+
+        //Afficher les cartes ( Creer des cartes a travers une carte initiale)
+
+        /*if (deck.length == 0) {
             System.out.println("Carte initiale non trouvée !");
         } else {
             System.out.println("Cartes du jeu :");
@@ -19,7 +64,8 @@ public class BlackJackApp {
                 int card_symbol = deck[i][1];
                 System.out.println("{" + card_number + "," + card_symbol+ "}" );
             }
-        }
+        }*/
+
 
     }
         /*CardController cardController = new CardController();
