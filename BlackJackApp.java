@@ -8,8 +8,20 @@ import java.util.Scanner;
 public class BlackJackApp {
     public static void main(String[] args) {
         CardService cardService = new CardService();
+        int[] initialCard = {1, 1};
 
-        int[][] deck = cardService.createNextCards(new int[] {1, 1});
+        int[][] deck = cardService.createNextCards(initialCard);
+
+        for (int i = 0; i < deck.length; i++) {
+            int cardValue = deck[i][0];
+            int cardSymbol = deck[i][1];
+
+            String cardString = cardService.printCard(cardValue, cardSymbol);
+
+            System.out.println(cardString);
+        }
+
+       // int[][] deck = cardService.createNextCards(new int[] {1, 1});
 
         //Melanger les cartes
 
