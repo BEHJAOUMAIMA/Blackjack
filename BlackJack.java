@@ -1,16 +1,65 @@
-import controllers.CardController;
 import services.CardService;
-
-import java.util.Arrays;
+import services.*;
 import java.util.Scanner;
 
 
-public class BlackJackApp {
+public class BlackJack {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        GameService gameService = new GameService();
+        PlayerService playerService = new PlayerService(gameService);
+        DealerService dealerService = new DealerService(gameService);
         CardService cardService = new CardService();
-        int[] initialCard = {1, 1};
 
+
+        int[] initialCard = {1, 1};
         int[][] deck = cardService.createNextCards(initialCard);
+        deck = cardService.shuffleDeck(deck);
+
+        int money = 1000;
+
+        while (money > 0) {
+            int bet = playerService.takeBet(scanner, money);
+
+            int[][] playerHand = new int[5][2];
+            int[][] dealerHand = new int[5][2];
+
+            int[][][] drawResult = CardService.piocherCartes(deck, 3);
+            playerHand[0] = drawResult[0][0];
+            playerHand[1] = drawResult[0][1];
+            dealerHand[0] = drawResult[1][0];
+            deck = drawResult[1];
+
+            System.out.println("Votre main :");
+            System.out.println(CardService.printCard(playerHand[0][0], playerHand[0][1]));
+            System.out.println(CardService.printCard(playerHand[1][0], playerHand[1][1]));
+
+            System.out.println("Carte du croupier :");
+            System.out.println(CardService.printCard(dealerHand[0][0], dealerHand[0][1]));
+
+            playerService.playerTurn(deck, playerHand, scanner);
+
+            dealerService.dealerTurn(deck, dealerHand);
+
+            int playerScore = gameService.calculateScore(playerHand);
+            int dealerScore = gameService.calculateScore(dealerHand);
+
+            money = gameService.determineWinner(playerScore, dealerScore, bet, money);
+
+            System.out.println("Argent restant : " + money);
+
+            System.out.println("Voulez-vous continuer à jouer ? (oui/non)");
+            String playAgain = scanner.next();
+            if (!playAgain.equalsIgnoreCase("oui")) {
+                break;
+            }
+        }
+
+        System.out.println("Merci d'avoir joué au Blackjack !");
+        scanner.close();
+        //int[] initialCard = {1, 1};
+
+        /*int[][] deck = cardService.createNextCards(initialCard);
 
         for (int i = 0; i < deck.length; i++) {
             int cardValue = deck[i][0];
@@ -19,7 +68,7 @@ public class BlackJackApp {
             String cardString = cardService.printCard(cardValue, cardSymbol);
 
             System.out.println(cardString);
-        }
+        }*/
 
        // int[][] deck = cardService.createNextCards(new int[] {1, 1});
 

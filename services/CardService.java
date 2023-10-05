@@ -11,8 +11,8 @@ public class CardService {
         int cardSymbol = initialCard[1];
         int index = 0;
 
-        for (int symbol = cardSymbol; symbol <= 4 ; symbol++) {
-            for (int number = (symbol == cardSymbol ? cardNumber : 1); number <= 13 ; number++) {
+        for (int symbol = cardSymbol; symbol <= 4; symbol++) {
+            for (int number = (symbol == cardSymbol ? cardNumber : 1); number <= 13; number++) {
                 deck[index][0] = number;
                 deck[index][1] = symbol;
                 index++;
@@ -28,11 +28,13 @@ public class CardService {
 
         return result;
     }
+
     public int[][][] extraireIemeCarte(int[][] cards, int indice) {
         if (indice < 0 || indice >= cards.length) {
             return new int[0][][];
         }
-        int[][] carteExtraite = { cards[indice] };
+
+        int[][] carteExtraite = {cards[indice]};
         int[][] cartesRestantes = new int[cards.length - 1][2];
         int new_index = 0;
 
@@ -48,7 +50,8 @@ public class CardService {
 
         return result;
     }
-    public int[][][] drawCard(int[][] cards) {
+
+    public static int[][][] tirerCarte(int[][] cards) {
         Random random = new Random();
         int index = random.nextInt(cards.length);
         int[][] remainingCards = new int[cards.length - 1][2];
@@ -63,11 +66,12 @@ public class CardService {
         }
 
         int[][][] result = new int[2][][];
-        result[0] = new int[][] { { cards[index][0], cards[index][1] } };
+        result[0] = new int[][]{{cards[index][0], cards[index][1]}};
         result[1] = remainingCards;
 
         return result;
     }
+
     public int[][] shuffleDeck(int[][] deck) {
         int[][] shuffledDeck = new int[deck.length][2];
         int[] shuffledIndices = new int[deck.length];
@@ -89,7 +93,8 @@ public class CardService {
 
         return shuffledDeck;
     }
-    public int[][][] drawNCards(int[][] deck, int n) {
+
+    public static int[][][] piocherCartes(int[][] deck, int n) {
         if (n > deck.length) {
             return new int[0][][];
         }
@@ -105,8 +110,9 @@ public class CardService {
             remainingCards[i - n] = deck[i];
         }
 
-        return new int[][][] { drawnCards, remainingCards };
+        return new int[][][]{drawnCards, remainingCards};
     }
+
     public int[][][] defausserCartes(int[][][] deck, int[][] cardsToDiscard) {
         int n = deck[0].length;
         int m = deck[1].length;
@@ -136,27 +142,45 @@ public class CardService {
         String cardColor = Colors.RESET;
 
         switch (value) {
-            case 1:  cardValue = "A";  break;
-            case 11: cardValue = " J"; break;
-            case 12: cardValue = " Q"; break;
-            case 13: cardValue = " K"; break;
-            default: cardValue = String.valueOf(value);
+            case 1:
+                cardValue = "A";
+                break;
+            case 11:
+                cardValue = " J";
+                break;
+            case 12:
+                cardValue = " Q";
+                break;
+            case 13:
+                cardValue = " K";
+                break;
+            default:
+                cardValue = String.valueOf(value);
         }
-        switch (symbole){
-            case 1: cardColor = Colors.RED;
-                suitSymbol = "♥"; break;
+        switch (symbole) {
+            case 1:
+                cardColor = Colors.RED;
+                suitSymbol = "♥";
+                break;
 
-            case 2: suitSymbol = "♣"; break;
+            case 2:
+                suitSymbol = "♣";
+                break;
 
-            case 3: cardColor = Colors.RED;
-                suitSymbol = "♦"; break;
+            case 3:
+                cardColor = Colors.RED;
+                suitSymbol = "♦";
+                break;
 
-            case 4: suitSymbol = "♠"; break;
+            case 4:
+                suitSymbol = "♠";
+                break;
 
-            default: throw new IllegalStateException("the symbole should be 1, 2, 3 or 4");
+            default:
+                throw new IllegalStateException("the symbole should be 1, 2, 3, or 4");
         }
 
-        return  cardColor +
+        return cardColor +
                 "+-------+\n" +
                 "| " + cardValue + suitSymbol + "   |\n" +
                 "|       |\n" +
@@ -164,4 +188,12 @@ public class CardService {
                 "+-------+\n" + Colors.RESET;
     }
 
+    public static String printDeck(int[][] deck) {
+        StringBuilder result = new StringBuilder();
+        for (int[] card : deck) {
+            result.append(printCard(card[0], card[1]));
+            result.append("\n");
+        }
+        return result.toString();
+    }
 }
