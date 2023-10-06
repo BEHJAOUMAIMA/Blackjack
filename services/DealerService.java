@@ -13,7 +13,7 @@ public class DealerService {
         hand[cardIndex][1] = deck[score][1];
     }
 
-    public void dealerTurn(int[][] deck, int[][] dealerHand) {
+    public int[][] dealerTurn(int[][] deck, int[][] dealerHand) {
         int dealerScore = gameService.calculateScore(dealerHand);
 
         while (dealerScore < 17) {
@@ -31,6 +31,16 @@ public class DealerService {
             dealerScore = gameService.calculateScore(dealerHand);
 
             deck = remainingCards;
+
+            System.out.println("Carte tirée par le croupier :");
+            System.out.println(CardService.printCard(drawnCard[0][0], drawnCard[0][1]));
+
+            System.out.println("Main du croupier :");
+            for (int i = 0; i < dealerHand.length && dealerHand[i][0] != 0; i++) {
+                System.out.println(CardService.printCard(dealerHand[i][0], dealerHand[i][1]));
+            }
         }
+
+        return deck;
     }
 }

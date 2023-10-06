@@ -49,6 +49,8 @@ public class PlayerService {
                 for (int i = 0; i < playerHand.length && playerHand[i][0] != 0; i++) {
                     System.out.println(CardService.printCard(playerHand[i][0], playerHand[i][1]));
                 }
+
+
             } else if (choice == 's') {
                 break;
             }

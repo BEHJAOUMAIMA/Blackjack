@@ -39,6 +39,12 @@ public class BlackJack {
 
             playerService.playerTurn(deck, playerHand, scanner);
 
+            System.out.println("Main du croupier :");
+            for (int i = 0; i < dealerHand.length && dealerHand[i][0] != 0; i++) {
+                System.out.println(CardService.printCard(dealerHand[i][0], dealerHand[i][1]));
+            }
+
+
             dealerService.dealerTurn(deck, dealerHand);
 
             int playerScore = gameService.calculateScore(playerHand);
